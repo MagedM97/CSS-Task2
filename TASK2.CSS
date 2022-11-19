@@ -57,7 +57,7 @@
   background-color: gray;
 }
 
-.right_nav_list >div:hover{
+.right_nav_list >div:hover,.hidden_main_list>div{
   cursor: pointer;
 }
 .nav_hidden li{
@@ -168,10 +168,15 @@ header a:hover ,.pages:hover,.pages:hover> .chevron_down {
   z-index:999;
 }
 .main_list > div,
-.interactions > div {
+.interactions > div,
+.hidden_main_list>div>div
+ {
   padding: 20px 10px 20px 10px ;
   font-size: 1rem;
   position: relative;
+}
+.hidden_main_list>div{
+  padding:25px 0;
 }
 .bars {
   padding: 5px;
@@ -190,7 +195,7 @@ button {
   border: none;
   cursor: pointer;
 }
-.categories {
+.categories{
   background-color: rgb(227, 189, 19);
   cursor: pointer;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
@@ -393,6 +398,9 @@ color: rgb(122, 116, 116);
 .hm{
   display: none;
 }
+.hidden_main_list>div{
+  display: none;
+}
 @media only screen and (max-width: 1000px) {
   .grid {
     grid-template-columns: 100%;
@@ -415,4 +423,33 @@ color: rgb(122, 116, 116);
 .middle_header {flex-direction: column;
 gap :20px;
 align-items: flex-start;}
+.main_list>div,.interactions>div{
+  display: none;
+}
+.hidden_main_list>div>div{
+  display: none;
+}
+.hidden_main_list .menu{
+  position: relative;
+  display: block;
+  color:rgb(227, 189, 19);
+}
+.hidden_main_list .categories{
+  color: black;
+}
+
+.hidden_main_list .menu:hover div{
+  display: block;
+}
+
+.hidden_main_list>div>div{
+  padding-left: 0%;
+}
+.pages:hover > ul  {
+  width: 50%;
+  top: 80%;
+}
+.pages .chevron_down{
+  left:20%;
+}
 }
