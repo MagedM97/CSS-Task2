@@ -41,22 +41,78 @@ getData().then((data)=> {data.data.forEach(element => {
 </div>`
 })
 });
-  async function getToken(){
-    try{
-    let res =fetch('http://localhost:5000/api/users/login/',{
+const getToken=async()=>{
+    let res =await fetch(`http://localhost:5000/api/users/login/`,{
   method:"POST",
-  headers:{
-    'Authorization':'Basic '+btoa('ramymibrahim@yahoo.com:123456'),
-    'Content-Type': 'application/json',
-  },
+  headers: {
+    'Content-Type': 'application/json'},
+  body : JSON.stringify({"email":"ramymibrahim@yahoo.com","password":"123456"}) 
 
-
- });
+ })
 let data=await res.json();
-return data;
-  }
-  catch(err){
-    console.log("error")
-    return err;}
+console.log(data)
+let token =data.token;
+console.log(token)
+return token;
 }
-getToken();
+try {
+    getToken();
+}
+
+catch (error) {
+    console.log(error);
+  }
+
+
+  let d = new Date();
+  let theDate = d.getDate()+'-'+(d.getMonth()+1)+'-'+d.getFullYear();
+
+
+
+  getToken().then(async (token)=> {
+    let addOrder = await fetch(`http://localhost:5000/api/orders`,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': token
+        },
+        body:JSON.stringify({
+          "sub_total_price": 200.0,
+          "shipping": 20.0,
+          "total_price": 220.0,
+          "user_id": "6346ac23bb862e01fe4b6535",
+          "order_date": theDate,
+          "order_details": [
+          {
+              "product_id": "6346c15ea060efd7cae40589",
+              "price": 50,
+              "qty": 2
+          },
+          {
+              "product_id": "6346c186a060efd7cae4058b",
+              "price": 50,
+              "qty": 2
+          }
+      ],
+      "shipping_info": {
+          "first_name": "Ramy",
+          "last_name": "Ibrahim",
+          "email": "ramymibrahim@yahoo.com",
+          "mobile_number": "01092812848",
+          "address1": "20 M A",
+          "address2": "",
+          "country": "Egypt",
+          "city": "Cairo",
+          "state": "Zamalek",
+          "zip_code": "11211"
+      }
+    })
+    })
+    let data = addOrder.json()
+    console.log(data)
+  })
+
+
+
+
+  
